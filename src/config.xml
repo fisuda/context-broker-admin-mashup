@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mashup xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="orion-admin-mashup" version="1.0.1">
+  <details>
+    <title>Orion Admin</title>
+    <description>Browse and administre an orion context broker server</description>
+    <image>images/catalogue.png</image>
+    <longdescription>DESCRIPTION.md</longdescription>
+    <authors>Álvaro Arranz García &lt;aarranz@fi.upm.es&gt;</authors>
+  </details>
+
+  <preferences>
+    <preference name="ngsi_server" type="text" label="NGSI server URL" description="URL of the Orion Context Broker to use for retrieving entity information"/>
+    <preference name="ngsi_tenant" type="text" label="FIWARE-Service" description="Tenant/service to use when connecting to the context broker. Must be a string of alphanumeric characters (lowercase) and the &quot;_&quot; symbol. Maximum length is 50 characters. If empty, the default tenant will be used" required="false"/>
+    <preference name="ngsi_service_path" type="text" label="FIWARE-ServicePath" description="Scope/path to use when connecting to the context broker. Must be a string of alphanumeric characters (lowercase) and the &quot;_&quot; symbol separated by &quot;/&quot; slashes. Maximum length is 50 characters. If empty, the default service path will be used: /" required="false"/>
+  </preferences>
+
+  <structure>
+    <preferencevalue name="baselayout" value="{&quot;verticalmargin&quot;:3,&quot;smart&quot;:&quot;false&quot;,&quot;horizontalmargin&quot;:4,&quot;type&quot;:&quot;gridlayout&quot;,&quot;columns&quot;:20,&quot;cellheight&quot;:12,&quot;rows&quot;:12}"/>
+    <tab id="0" name="Tab">
+      <resource id="40040" name="ngsi-subscription-browser" title="Available subscriptions" vendor="CoNWeT" version="1.0.1">
+        <position x="0" y="7" z="1"/>
+        <rendering height="5" width="20" layout="0"/>
+        <preferencevalue name="allow_edit" value="true"/>
+        <preferencevalue name="ngsi_server" value="%(params.ngsi_server)" readonly="true"/>
+        <preferencevalue name="ngsi_tenant" value="%(params.ngsi_tenant)" readonly="true"/>
+        <preferencevalue name="ngsi_service_path" value="%(params.ngsi_service_path)" readonly="true"/>
+        <preferencevalue name="use_owner_credentials" value="false"/>
+        <preferencevalue name="use_user_fiware_token" value="false"/>
+        <preferencevalue name="allow_delete" value="true"/>
+      </resource>
+      <resource id="40026" name="ngsi-type-browser" title="Available types" vendor="CoNWeT" version="1.0.3">
+        <position x="0" y="0" z="0"/>
+        <rendering height="7" width="14" layout="0"/>
+        <preferencevalue name="ngsi_server" value="%(params.ngsi_server)" readonly="true"/>
+        <preferencevalue name="ngsi_tenant" value="%(params.ngsi_tenant)" readonly="true"/>
+        <preferencevalue name="ngsi_service_path" value="%(params.ngsi_service_path)" readonly="true"/>
+        <preferencevalue name="use_owner_credentials" value="false"/>
+        <preferencevalue name="allow_map" value="true"/>
+        <preferencevalue name="use_user_fiware_token" value="false"/>
+        <preferencevalue name="allow_use" value="true"/>
+      </resource>
+      <resource id="40025" name="ngsi-browser" title="Entity List" vendor="CoNWeT" version="2.0.0">
+        <position x="14" y="0" z="1"/>
+        <rendering height="7" width="6" layout="0"/>
+        <preferencevalue name="ngsi_server" value="%(params.ngsi_server)" readonly="true"/>
+        <preferencevalue name="ngsi_tenant" value="%(params.ngsi_tenant)" readonly="true"/>
+        <preferencevalue name="ngsi_service_path" value="%(params.ngsi_service_path)" readonly="true"/>
+        <preferencevalue name="allow_edit" value="true"/>
+        <preferencevalue name="type_column" value="true"/>
+        <preferencevalue name="extra_attributes" value=""/>
+        <preferencevalue name="ngsi_entities" value=""/>
+        <preferencevalue name="allow_use" value="true"/>
+        <preferencevalue name="use_user_fiware_token" value="false"/>
+        <preferencevalue name="allow_delete" value="true"/>
+        <preferencevalue name="ngsi_id_filter" value=""/>
+      </resource>
+    </tab>
+    <wiring version="2.0">
+      <connection>
+        <source endpoint="selection" id="40026" type="widget"/>
+        <target endpoint="filter-by-type" id="40025" type="widget"/>
+      </connection>
+      <visualdescription>
+        <component id="40026" type="widget">
+          <position x="133" y="88"/>
+          <sources/>
+          <targets/>
+        </component>
+        <component id="40025" type="widget">
+          <position x="475" y="85"/>
+          <sources/>
+          <targets/>
+        </component>
+        <connection sourcename="widget/40026/selection" targetname="widget/40025/filter-by-type"/>
+      </visualdescription>
+    </wiring>
+  </structure>
+  <embedded>
+    <resource name="map-viewer" src="macs/CoNWeT_map-viewer_2.5.8.wgt" vendor="CoNWeT" version="2.5.8"/>
+    <resource name="json-editor" src="macs/CoNWeT_json-editor_1.0.wgt" vendor="CoNWeT" version="1.0"/>
+    <resource name="ngsi-subscription-browser" src="macs/CoNWeT_ngsi-subscription-browser_1.0.1.wgt" vendor="CoNWeT" version="1.0.1"/>
+    <resource name="ngsi-type-browser" src="macs/CoNWeT_ngsi-type-browser_1.0.3.wgt" vendor="CoNWeT" version="1.0.3"/>
+    <resource name="ngsi-browser" src="macs/CoNWeT_ngsi-browser_2.0.0.wgt" vendor="CoNWeT" version="2.0.0"/>
+  </embedded>
+  <wiring>
+    <outputendpoint name="selection" type="text" label="Selection" friendcode="ngsi-type-info"/>
+    <outputendpoint name="selection" type="text" label="Selection"/>
+    <inputendpoint name="filter-by-type" type="text" label="Filter by Type" friendcode="ngsi-type-info"/>
+  </wiring>
+</mashup>
