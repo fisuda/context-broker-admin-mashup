@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<mashup xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="orion-admin-mashup" version="1.0.1">
+<mashup xmlns="http://wirecloud.conwet.fi.upm.es/ns/macdescription/1" vendor="CoNWeT" name="context-broker-admin" version="1.0.1">
   <details>
-    <title>Orion Admin</title>
-    <description>Browse and administre an orion context broker server</description>
+    <title>Context Broker Admin Panel</title>
+    <description>Browse and manage a context broker server</description>
     <image>images/catalogue.png</image>
     <longdescription>DESCRIPTION.md</longdescription>
-    <authors>Álvaro Arranz García &lt;aarranz@fi.upm.es&gt;</authors>
+    <authors>Álvaro Arranz García &lt;aarranz@ficodes.com&gt;</authors>
   </details>
 
   <preferences>
